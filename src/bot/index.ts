@@ -9,7 +9,6 @@ import { adminFeature } from '#root/bot/features/admin.js'
 import { languageFeature } from '#root/bot/features/language.js'
 import { unhandledFeature } from '#root/bot/features/unhandled.js'
 import { errorHandler } from '#root/bot/handlers/error.js'
-import { updateLogger } from '#root/bot/middlewares/update-logger.js'
 import { session } from '#root/bot/middlewares/session.js'
 import type { Context, SessionData } from '#root/bot/context.js'
 import { createContextConstructor } from '#root/bot/context.js'
@@ -51,8 +50,6 @@ export function createBot(token: string, dependencies: Dependencies, options: Op
 
   if (config.isPollingMode)
     protectedBot.use(sequentialize(getSessionKey))
-  if (config.isDebug)
-    protectedBot.use(updateLogger())
   protectedBot.use(autoChatAction(bot.api))
   protectedBot.use(hydrateReply)
   protectedBot.use(hydrate())
